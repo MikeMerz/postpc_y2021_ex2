@@ -1,36 +1,92 @@
 package android.exercise.mini.calculator.app;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class SimpleCalculatorImpl implements SimpleCalculator {
 
   // todo: add fields as needed
+   private ArrayList<String> calc = new ArrayList<>();
+   private boolean endsWithOperator = false;
+   private boolean hasDigits = false;
 
   @Override
   public String output() {
     // todo: return output based on the current state
-    return "implement me please";
+    if (calc.isEmpty())
+    {
+      return "0";
+    }
+    String finalRet = "";
+    for(int i=0;i<calc.size();++i)
+    {
+      finalRet = finalRet.concat(calc.get(i));
+    }
+    return finalRet;
   }
 
   @Override
   public void insertDigit(int digit) {
     // todo: insert a digit
+    if (digit>=0 && digit<10)
+    {
+      calc.add(Integer.toString(digit));
+      endsWithOperator = false;
+      hasDigits = true;
+    }
+    else
+    {
+      throw new IllegalArgumentException();
+    }
   }
 
   @Override
   public void insertPlus() {
     // todo: insert a plus
+    if (!hasDigits)
+    {
+      calc.add("0");
+    }
+    if (!endsWithOperator)
+    {
+      calc.add("+");
+      endsWithOperator = true;
+    }
   }
 
   @Override
   public void insertMinus() {
     // todo: insert a minus
+    if (!hasDigits)
+    {
+      calc.add("0");
+    }
+    if (!endsWithOperator)
+    {
+      calc.add("-");
+      endsWithOperator = true;
+    }
   }
 
   @Override
   public void insertEquals() {
     // todo: calculate the equation. after calling `insertEquals()`, the output should be the result
     //  e.g. given input "14+3", calling `insertEquals()`, and calling `output()`, output should be "17"
+    String all ="";
+    for(int k=0;k<calc.size();++k)
+    {
+      all = all.concat(calc.get(k));
+    }
+    String[] nums = all.replaceAll("\\s", "").split("\\+|(?=-)");
+    int sum = 0;
+    for (String num : nums) {
+      int i = Integer.parseInt(num);
+      sum += i;
+    }
+    calc.clear();
+    endsWithOperator = false;
+    calc.add(Integer.toString(sum));
   }
 
   @Override
@@ -40,17 +96,33 @@ public class SimpleCalculatorImpl implements SimpleCalculator {
     //  if input was "12+3" and called `deleteLast()`, then delete the "3"
     //  if input was "12+" and called `deleteLast()`, then delete the "+"
     //  if no input was given, then there is nothing to do here
+    if(!calc.isEmpty())
+    {
+      calc.remove(calc.size()-1);
+      try{
+        endsWithOperator = Integer.parseInt(calc.get(calc.size()-1)) <= -1 || Integer.parseInt(calc.get(calc.size()-1)) >= 10;
+      }catch (NumberFormatException e)
+      {
+        endsWithOperator = true;
+      }
+    }
   }
 
   @Override
   public void clear() {
     // todo: clear everything (same as no-input was never given)
+    calc.clear();
+    endsWithOperator = false;
   }
 
   @Override
   public Serializable saveState() {
     CalculatorState state = new CalculatorState();
+    state.calc = new ArrayList<>();
     // todo: insert all data to the state, so in the future we can load from this state
+    state.calc.addAll(calc);
+    state.endsWithOperator = endsWithOperator;
+    state.hasDigits = hasDigits;
     return state;
   }
 
@@ -61,9 +133,15 @@ public class SimpleCalculatorImpl implements SimpleCalculator {
     }
     CalculatorState casted = (CalculatorState) prevState;
     // todo: use the CalculatorState to load
+    calc = casted.calc;
+    endsWithOperator = casted.endsWithOperator;
+    hasDigits = casted.hasDigits;
   }
 
   private static class CalculatorState implements Serializable {
+    private ArrayList<String> calc;
+    private boolean endsWithOperator;
+    private boolean hasDigits;
     /*
     TODO: add fields to this class that will store the calculator state
     all fields must only be from the types:
