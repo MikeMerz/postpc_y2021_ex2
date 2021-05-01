@@ -337,4 +337,12 @@ public class SimpleCalculatorImplTest {
     calculatorUnderTest.insertEquals();
     assertEquals("2",calculatorUnderTest.output());
   }
+  @Test
+  public void when_AddingDigitToNothing_then_calc() {
+    SimpleCalculatorImpl calculatorUnderTest = new SimpleCalculatorImpl();
+    calculatorUnderTest.insertPlus();
+    calculatorUnderTest.insertDigit(1);
+    calculatorUnderTest.insertEquals();
+    assertEquals("1",calculatorUnderTest.output());
+  }
 }

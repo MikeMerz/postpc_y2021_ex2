@@ -9,7 +9,6 @@ public class SimpleCalculatorImpl implements SimpleCalculator {
   // todo: add fields as needed
    private ArrayList<String> calc = new ArrayList<>();
    private boolean endsWithOperator = false;
-   private boolean hasDigits = false;
 
   @Override
   public String output() {
@@ -33,7 +32,6 @@ public class SimpleCalculatorImpl implements SimpleCalculator {
     {
       calc.add(Long.toString(digit));
       endsWithOperator = false;
-      hasDigits = true;
     }
     else
     {
@@ -44,7 +42,7 @@ public class SimpleCalculatorImpl implements SimpleCalculator {
   @Override
   public void insertPlus() {
     // todo: insert a plus
-    if (!hasDigits)
+    if (calc.isEmpty())
     {
       calc.add("0");
     }
@@ -58,7 +56,7 @@ public class SimpleCalculatorImpl implements SimpleCalculator {
   @Override
   public void insertMinus() {
     // todo: insert a minus
-    if (!hasDigits)
+    if (calc.isEmpty())
     {
       calc.add("0");
     }
@@ -99,7 +97,6 @@ public class SimpleCalculatorImpl implements SimpleCalculator {
     if(calc.size() == 1)
     {
       this.clear();
-      calc.add("0");
       return;
     }
     if(!calc.isEmpty())
@@ -128,7 +125,6 @@ public class SimpleCalculatorImpl implements SimpleCalculator {
     // todo: insert all data to the state, so in the future we can load from this state
     state.calc.addAll(calc);
     state.endsWithOperator = endsWithOperator;
-    state.hasDigits = hasDigits;
     return state;
   }
 
@@ -141,12 +137,10 @@ public class SimpleCalculatorImpl implements SimpleCalculator {
     // todo: use the CalculatorState to load
     calc = casted.calc;
     endsWithOperator = casted.endsWithOperator;
-    hasDigits = casted.hasDigits;
   }
 
   private static class CalculatorState implements Serializable {
     private ArrayList<String> calc;
     private boolean endsWithOperator;
-    private boolean hasDigits;
   }
 }
