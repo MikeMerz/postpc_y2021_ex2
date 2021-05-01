@@ -94,7 +94,6 @@ public class SimpleCalculatorImplTest {
     SimpleCalculatorImpl secondCalculator = new SimpleCalculatorImpl();
     // TODO: implement the test based on this method's name.
     //  you can get inspiration from the test method `when_savingState_should_loadThatStateCorrectly()`
-    // give some input
     firstCalculator.insertDigit(5);
     firstCalculator.insertPlus();
     firstCalculator.insertDigit(7);

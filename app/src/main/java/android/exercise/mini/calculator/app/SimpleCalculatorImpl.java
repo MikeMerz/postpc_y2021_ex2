@@ -143,13 +143,6 @@ public class SimpleCalculatorImpl implements SimpleCalculator {
     private ArrayList<String> calc;
     private boolean endsWithOperator;
     private boolean hasDigits;
-    /*
-    TODO: add fields to this class that will store the calculator state
-    all fields must only be from the types:
-    - primitives (e.g. int, boolean, etc)
-    - String
-    - ArrayList<> where the type is a primitive or a String
-    - HashMap<> where the types are primitives or a String
-     */
+
   }
 }
