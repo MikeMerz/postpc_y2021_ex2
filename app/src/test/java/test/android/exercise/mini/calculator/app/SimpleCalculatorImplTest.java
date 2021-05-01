@@ -312,4 +312,29 @@ public class SimpleCalculatorImplTest {
     calculatorUnderTest.insertEquals();
     assertEquals("0",calculatorUnderTest.output());
   }
+  @Test
+  public void when_DeleteUntilLast_then_calc() {
+    SimpleCalculatorImpl calculatorUnderTest = new SimpleCalculatorImpl();
+    calculatorUnderTest.insertDigit(1);
+    calculatorUnderTest.insertDigit(1);
+    calculatorUnderTest.deleteLast();
+    calculatorUnderTest.deleteLast();
+    calculatorUnderTest.insertPlus();
+    calculatorUnderTest.insertDigit(1);
+    calculatorUnderTest.insertEquals();
+    assertEquals("1",calculatorUnderTest.output());
+  }
+  @Test
+  public void when_DeleteUntilLastAdd_then_calc() {
+    SimpleCalculatorImpl calculatorUnderTest = new SimpleCalculatorImpl();
+    calculatorUnderTest.insertDigit(1);
+    calculatorUnderTest.insertDigit(1);
+    calculatorUnderTest.deleteLast();
+    calculatorUnderTest.deleteLast();
+    calculatorUnderTest.insertDigit(1);
+    calculatorUnderTest.insertPlus();
+    calculatorUnderTest.insertDigit(1);
+    calculatorUnderTest.insertEquals();
+    assertEquals("2",calculatorUnderTest.output());
+  }
 }

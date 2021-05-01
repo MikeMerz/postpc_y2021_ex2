@@ -85,8 +85,7 @@ public class SimpleCalculatorImpl implements SimpleCalculator {
       long i = Long.parseLong(num);
       sum += i;
     }
-    calc.clear();
-    endsWithOperator = false;
+    this.clear();
     calc.add(Long.toString(sum));
   }
 
@@ -97,6 +96,12 @@ public class SimpleCalculatorImpl implements SimpleCalculator {
     //  if input was "12+3" and called `deleteLast()`, then delete the "3"
     //  if input was "12+" and called `deleteLast()`, then delete the "+"
     //  if no input was given, then there is nothing to do here
+    if(calc.size() == 1)
+    {
+      this.clear();
+      calc.add("0");
+      return;
+    }
     if(!calc.isEmpty())
     {
       calc.remove(calc.size()-1);
@@ -143,6 +148,5 @@ public class SimpleCalculatorImpl implements SimpleCalculator {
     private ArrayList<String> calc;
     private boolean endsWithOperator;
     private boolean hasDigits;
-
   }
 }
