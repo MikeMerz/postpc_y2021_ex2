@@ -301,4 +301,16 @@ public class SimpleCalculatorImplTest {
     calculatorUnderTest.insertDigit(1);
     assertEquals("12+1",calculatorUnderTest.output());
   }
+  @Test
+  public void when_EqualsAfterClear_then_showHistory() {
+    SimpleCalculatorImpl calculatorUnderTest = new SimpleCalculatorImpl();
+    calculatorUnderTest.insertDigit(1);
+    calculatorUnderTest.insertDigit(2);
+    calculatorUnderTest.insertPlus();
+    calculatorUnderTest.insertDigit(1);
+    calculatorUnderTest.insertDigit(2);
+    calculatorUnderTest.clear();
+    calculatorUnderTest.insertEquals();
+    assertEquals("0",calculatorUnderTest.output());
+  }
 }

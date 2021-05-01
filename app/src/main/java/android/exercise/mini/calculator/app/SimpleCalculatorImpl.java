@@ -31,7 +31,7 @@ public class SimpleCalculatorImpl implements SimpleCalculator {
     // todo: insert a digit
     if (digit>=0 && digit<10)
     {
-      calc.add(Integer.toString(digit));
+      calc.add(Long.toString(digit));
       endsWithOperator = false;
       hasDigits = true;
     }
@@ -78,15 +78,16 @@ public class SimpleCalculatorImpl implements SimpleCalculator {
     {
       all = all.concat(calc.get(k));
     }
+    if(all.equals("")){calc.add("0");return;}
     String[] nums = all.replaceAll("\\s", "").split("\\+|(?=-)");
     int sum = 0;
     for (String num : nums) {
-      int i = Integer.parseInt(num);
+      long i = Long.parseLong(num);
       sum += i;
     }
     calc.clear();
     endsWithOperator = false;
-    calc.add(Integer.toString(sum));
+    calc.add(Long.toString(sum));
   }
 
   @Override
@@ -100,7 +101,7 @@ public class SimpleCalculatorImpl implements SimpleCalculator {
     {
       calc.remove(calc.size()-1);
       try{
-        endsWithOperator = Integer.parseInt(calc.get(calc.size()-1)) <= -1 || Integer.parseInt(calc.get(calc.size()-1)) >= 10;
+        endsWithOperator = Long.parseLong(calc.get(calc.size()-1)) <= -1 || Long.parseLong(calc.get(calc.size()-1)) >= 10;
       }catch (NumberFormatException e)
       {
         endsWithOperator = true;
